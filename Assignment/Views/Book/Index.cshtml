@@ -1,0 +1,53 @@
+﻿@model List<Book>
+
+@if (TempData["Message"] != null)
+{
+    <h3 class="alert alert-info">@TempData["Message"]</h3>
+}
+
+@if (Model.Count == 0)
+{
+    <h2 class="alert alert-info">No Book available</h2>
+    <th>
+        <a class="btn btn-success" asp-controller="Book" asp-action="Add">Add</a>
+    </th>
+}
+else
+{
+    <table class="table table-bordered text-center ">
+        
+            <th class="h3 text-primary" colspan="3">Book management</th>
+            <th>
+                <a class="btn btn-success" asp-controller="Book" asp-action="Add">Add</a>
+            </th>
+        
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Img</th>
+            <th></th>
+        </tr>
+        @foreach (var b in Model)
+        {
+            <tr>
+                <td>@b.Name</td>
+                <td>@b.Description</td>
+                <td>
+                    <a asp-controller="Book" asp-action="Detail" asp-route-id="@b.Id">
+                        <img src="@b.Img" width="150" height="150" />
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-warning" asp-controller="Book" asp-action="Edit" asp-route-id="@b.Id">
+                        Edit
+                    </a>
+
+                    <a class="btn btn-danger" asp-controller="Book" asp-action="Delete" asp-route-id="@b.Id" onclick="return confirm('r u sure delete');">
+                        Del
+                    </a>
+
+                </td>
+            </tr>
+        }
+    </table>
+}

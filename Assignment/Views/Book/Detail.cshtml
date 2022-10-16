@@ -1,0 +1,31 @@
+﻿@model Assignment.Models.Book
+
+<div class="row text-center">
+    <div class="col">
+        <img src="@Model.Img" height="230" width="230" />
+    </div>
+    <div class="col">
+        <table class=" table table-bordered">
+            <tr>
+                <th colspan="2">@Model.Name</th>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>@Model.Price</td>
+            </tr>
+            <tr>
+                <th>Edition</th>
+                <td>@Model.Edition</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>
+                    <a asp-controller="Category" asp-action="Info"
+                       asp-route-id="@Model.Category.Id">
+                        @Model.Category.Name
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
