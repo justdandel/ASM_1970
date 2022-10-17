@@ -1,12 +1,8 @@
 ﻿@model List<Category>
 
+<h1>Category List</h1>
 <table class="table table-info">
-    <tr>
-        <th colspan="2">Category List</th>
-        <th>
-            <a class="btn btn-primary" asp-controller="Category" asp-action="Add">Add</a>
-        </th>
-    </tr>
+    
     <tr>
         <th>Category Id</th>
         <th>Category Name</th>
@@ -18,6 +14,7 @@
             <td>@cate.Id</td>
             <td>@cate.Name</td>
             <td class="text-center">
+                <a class="btn btn-primary" asp-controller="Category" asp-action="Add">Add</a>
                 <a asp-controller="Category" asp-action="Edit" class="btn btn-warning"
                asp-route-id="@cate.Id">Edit</a>
                 <a asp-controller="Category" asp-action="Remove" class="btn btn-danger"

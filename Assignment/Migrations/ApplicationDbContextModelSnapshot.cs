@@ -15,9 +15,54 @@ namespace Assignment.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.28")
+                .HasAnnotation("ProductVersion", "3.1.30")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Assignment.Models.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DoB")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Img")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("authors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "ác phẩm của Kafka đều mang một đặc trưng: nói về một phần u tối trong dãy “cảm xúc” của con người. Chúng đều được bao trùm trong bầu không khí, ấn tượng, cảm giác rất riêng biệt, xuất hiện với tần suất lớn như một nỗi ám ảnh khôn nguôi.",
+                            DoB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Img = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS_RyhnMq01yw12TECaSLPWq83HKvFvakE6A&usqp=CAU",
+                            Name = "Franz Kafka"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "ác phẩm của Kafka đều mang một đặc trưng: nói về một phần u tối trong dãy “cảm xúc” của con người. Chúng đều được bao trùm trong bầu không khí, ấn tượng, cảm giác rất riêng biệt, xuất hiện với tần suất lớn như một nỗi ám ảnh khôn nguôi.",
+                            DoB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Img = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS_RyhnMq01yw12TECaSLPWq83HKvFvakE6A&usqp=CAU",
+                            Name = "Gabriel Garcia Marquez"
+                        });
+                });
 
             modelBuilder.Entity("Assignment.Models.Book", b =>
                 {
@@ -25,6 +70,9 @@ namespace Assignment.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AuthorID")
+                        .HasColumnType("int");
 
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
@@ -49,6 +97,8 @@ namespace Assignment.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorID");
+
                     b.HasIndex("CategoryID");
 
                     b.ToTable("books");
@@ -57,6 +107,7 @@ namespace Assignment.Migrations
                         new
                         {
                             Id = 1,
+                            AuthorID = 1,
                             CategoryID = 1,
                             Description = "ahsufhadhsafasdhaa",
                             Edition = 2,
@@ -67,6 +118,7 @@ namespace Assignment.Migrations
                         new
                         {
                             Id = 2,
+                            AuthorID = 1,
                             CategoryID = 1,
                             Description = "kjhadbfhlgsdafb saldlasdasd",
                             Edition = 3,
@@ -77,6 +129,7 @@ namespace Assignment.Migrations
                         new
                         {
                             Id = 3,
+                            AuthorID = 4,
                             CategoryID = 3,
                             Description = "kalhdfladhlahldf fadhfahdfaf",
                             Edition = 2,
@@ -316,6 +369,12 @@ namespace Assignment.Migrations
 
             modelBuilder.Entity("Assignment.Models.Book", b =>
                 {
+                    b.HasOne("Assignment.Models.Author", "Author")
+                        .WithMany("BookList")
+                        .HasForeignKey("AuthorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Assignment.Models.Category", "Category")
                         .WithMany("BookList")
                         .HasForeignKey("CategoryID")

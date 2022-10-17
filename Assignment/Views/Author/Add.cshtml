@@ -1,0 +1,22 @@
+﻿@model Assignment.Models.Author
+
+<form method="post" asp-controller="Author" asp-action="Add">
+    <div class="form-group">
+        <label asp-for="@Model.Name"></label>
+        <input class="form-control" asp-for="@Model.Name" />
+        <span class="text-danger" asp-validation-for="@Model.Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Description"></label>
+        <input class="form-control" asp-for="@Model.Description" />
+        <span class="text-danger" asp-validation-for="@Model.Description"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Img"></label>
+        <input class="form-control" asp-for="@Model.Img" />
+        <span class="text-danger" asp-validation-for="@Model.Img"></span>
+    </div>
+    <div class=" form-group">
+        <input type="submit" class="btn btn-primary" value="Add" />
+    </div>
+</form>

@@ -2,6 +2,7 @@
 using Assignment.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Assignment.Data;
 using System.Linq;
 
 namespace Assignment.Controllers
@@ -56,37 +57,44 @@ namespace Assignment.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            //lay ra du lieu tu bang university va luu vao list
+            var author = context.authors.ToList();
+            ViewBag.Author = author;
             var category = context.categories.ToList();
-            //du lieu day vao viewbag
             ViewBag.Category = category;
             return View();
         }
 
         [HttpPost]
-        public IActionResult Add(Book b)
+        public IActionResult Add(Book book)
         {
             if (ModelState.IsValid)
             {
-                context.books.Add(b);
+                context.books.Add(book);
                 context.SaveChanges();
-                TempData["Message"] = "Add successful!";
-                return RedirectToAction("index");
+                return Redirect("/");
             }
-            else
-            {
-                return View(b);
-            }
+            var author = context.authors.ToList();
+            ViewBag.Author = author;
+            var categories = context.categories.ToList();
+            ViewBag.Category = categories;
+            return View();
+
 
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var category = context.categories.ToList();
+            var books = context.books.ToList();
             //du lieu day vao viewbag
-            ViewBag.Category = category;
-            return View(context.categories.Find(id));
+            var author = context.authors.ToList();
+            ViewBag.Author = author;
+            var categories = context.categories.ToList();
+            ViewBag.Category = categories;
+
+            var c = books.FirstOrDefault(c => c.Id == id);
+
+            return View(c);
         }
 
         [HttpPost]
@@ -101,7 +109,11 @@ namespace Assignment.Controllers
             }
             else
             {
-                return View(b);
+                var author = context.authors.ToList();
+                ViewBag.Author = author;
+                var categories = context.categories.ToList();
+                ViewBag.Category = categories;
+                return View();
             }
         }
     }

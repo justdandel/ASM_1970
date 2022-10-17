@@ -2,38 +2,53 @@
 
 <form method="post" asp-controller="Book" asp-action="Edit">
     <div class="form-group">
-        <label asp-for="@Model.Name"></label>
-        <input class="form-control" asp-for="@Model.Name" />
-        <span class="text-danger" asp-validation-for="@Model.Name"></span>
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" />
+        <span class="text-danger" asp-validation-for="Name"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Price"></label>
-        <input class="form-control" asp-for="@Model.Price" />
-        <span class="text-danger" asp-validation-for="@Model.Price"></span>
+        <label asp-for="Price"></label>
+        <input class="form-control" asp-for="Price" />
+        <span class="text-danger" asp-validation-for="Price"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Description"></label>
-        <input class="form-control" asp-for="@Model.Description" />
-        <span class="text-danger" asp-validation-for="@Model.Description"></span>
+        <label asp-for="Description"></label>
+        <input class="form-control" asp-for="Description" />
+        <span class="text-danger" asp-validation-for="Description"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Edition"></label>
-        <input class="form-control" asp-for="@Model.Edition" />
-        <span class="text-danger" asp-validation-for="@Model.Edition"></span>
+        <label asp-for="Edition"></label>
+        <input class="form-control" asp-for="Edition" />
+        <span class="text-danger" asp-validation-for="Edition"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Img"></label>
-        <img src="@Model.Img" width="100" height="100" />
-        <input class="form-control mt-3" asp-for="@Model.Img" />
-        <span class="text-danger" asp-validation-for="@Model.Img"></span>
+        <label asp-for="Img"></label>
+        <img src="Img" width="100" height="100" />
+        <input class="form-control mt-3" asp-for="Img" />
+        <span class="text-danger" asp-validation-for="Img"></span>
     </div>
-   
     <div class="form-group">
-        <label asp-for="@Model.Name"></label>
-        <select class="list-group-item" asp-for="@Model.CategoryID" asp-items="@(new SelectList(ViewBag.Category,"Id","Name"))">
-            <option>Select a university</option>
+        <label asp-for="Name"></label>
+        <select asp-for="AuthorID" class="list-group-item">
+            <option value="0">Select a university hihi </option>
+            @foreach (var item in ViewBag.Author)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
         </select>
-        <span class=" text-danger" asp-validation-for="@Model.CategoryID"></span>
+        <span class=" text-danger" asp-validation-for="AuthorID"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Name"></label>  
+        <select class="list-group-item" asp-for="CategoryID">
+            <option value="0">Select a university</option>
+            @foreach(var item in ViewBag.Category)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <span class=" text-danger" asp-validation-for="CategoryID"></span>
     </div> 
     <div class=" form-group">
         <input type="submit" class="btn btn-primary" value="Edit" />

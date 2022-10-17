@@ -6,7 +6,7 @@ namespace Assignment.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="vcl")] 
         public string Name { get; set; }
 
         [Required]
@@ -22,8 +22,14 @@ namespace Assignment.Models
         [Required] 
         public int Edition { get; set; }
 
+        [Required]
+        [Range(1,int.MaxValue,ErrorMessage ="DIT ME THANG TROnG")]
         public int CategoryID { get; set; }
 
         public Category Category { get; set; }
+
+        public int AuthorID { get; set; }
+
+        public Author Author { get; set; }
     }
 }

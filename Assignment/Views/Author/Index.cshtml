@@ -1,0 +1,37 @@
+﻿@model List<Author>
+
+<table class="table table-info">
+    <tr>
+        <th colspan="4">Author List</th>
+        <th>
+            <a class="btn btn-primary" asp-controller="Author" asp-action="Add">Add</a>
+        </th>
+    </tr>
+    <tr>
+        <th>Author Id</th>
+        <th>Author Name</th>
+        <th>Author Description</th>
+        <th>Author Image</th>
+        <th>Menu</th>
+    </tr>
+    @foreach (var a in Model)
+    {
+        <tr>
+            <td>@a.Id</td>
+            <td>@a.Name</td>
+            <td>@a.Description</td>
+            <td>
+                <a asp-controller="Author" asp-action="Info" asp-route-id="@a.Id">
+                    <img src="@a.Img"
+                     width="100" height="100" />
+                </a>
+            </td>
+            <td>
+                <a asp-controller="Author" asp-action="Edit" class="btn btn-warning"
+               asp-route-id="@a.Id">Edit</a>
+                <a asp-controller="Author" asp-action="Delete" class="btn btn-danger"
+               asp-route-id="@a.Id" onclick="return confirm('Are you sure to remove this Author ?');">Remove</a>
+            </td>
+        </tr>
+    }
+</table>

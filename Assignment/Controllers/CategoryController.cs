@@ -14,7 +14,7 @@ namespace Assignment.Controllers
         {
             this.context = context;
         }
-
+        
         public IActionResult Index()
         {
             var categories = context.categories.ToList();
@@ -28,6 +28,7 @@ namespace Assignment.Controllers
                 return NotFound();
             }
             var category = context.categories.Include(c => c.BookList).FirstOrDefault(c => c.Id == id);
+
             //Note: khi muốn truy xuất dữ liệu của bảng B từ bảng A
             //thì cần sử dụng Include kết hợp với FirstOrDefault
             //còn nếu chỉ truy xuất thông tin id đơn thuần thì sử dụng
